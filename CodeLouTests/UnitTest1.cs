@@ -85,6 +85,16 @@ namespace CodeLouTests
             //Assert
             Assert.IsTrue (_applyPage.raceCheckBoxes.Displayed);
         }
+        [TestMethod]
+        public void VerifyIAgreeRadioButton()
+        {
+            //Act 
+            _driver.Navigate().GoToUrl (_applyPage.applyPageUrl);
+            //
+            _seleniumHelpers.ScrollElementIntoViewAndClick(_applyPage.iAgreeCheckBox);
+            //Assert
+            Assert.IsTrue(_applyPage.iAgreeCheckBox.Displayed);
+        }
 
         [TestCleanup]
         public void Cleanup()
