@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplyPage.cs" />
+    <Compile Include="IWebElementExtentions.cs" />
     <Compile Include="SeleniumHelpers.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

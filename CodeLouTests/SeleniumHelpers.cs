@@ -35,5 +35,11 @@ namespace CodeLouTests
             select.SelectByIndex(index);
         }
 
+        public void ClickViaJavaScript(IWebElement element) 
+        {
+            IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)_driver;
+            javaScriptExecutor.ExecuteScript("arguments[0].click();", element);
+        }
+
     }
 }

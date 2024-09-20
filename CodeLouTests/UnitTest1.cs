@@ -65,6 +65,26 @@ namespace CodeLouTests
             Assert.AreEqual("Thank you for applying. We have received your application. If you meet our requirements (18+ years old, resident of one of our counties of service) you will be placed on our waitlist and we will contact you when we get to your name. Classes start three times a year, and due to the waitlist it could take six to twelve months before we contact you. If you have any questions, please contact info@code-you.org.".Trim()
           , _applyPage.confirmationText.Text.Trim());
         }
+        [TestMethod]
+        public void VerifyBirthDateField()
+        {
+            //Act
+            _driver.Navigate().GoToUrl(_applyPage.applyPageUrl);
+            //
+            _seleniumHelpers.ScrollElementIntoViewAndClick (_applyPage.birthDateTextBox);
+            //Assert
+            Assert.IsTrue(_applyPage.birthDateTextBox.Displayed);
+        }
+        [TestMethod]
+        public void VerifyRaceCheckBox()
+        {
+            //Act
+            _driver.Navigate().GoToUrl(_applyPage.applyPageUrl);
+            //
+            _seleniumHelpers.ScrollElementIntoViewAndClick(_applyPage.raceCheckBoxes);
+            //Assert
+            Assert.IsTrue (_applyPage.raceCheckBoxes.Displayed);
+        }
 
         [TestCleanup]
         public void Cleanup()
