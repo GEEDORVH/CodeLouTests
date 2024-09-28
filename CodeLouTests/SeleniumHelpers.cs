@@ -40,6 +40,11 @@ namespace CodeLouTests
             IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)_driver;
             javaScriptExecutor.ExecuteScript("arguments[0].click();", element);
         }
+        public void WebDriverWait(bool waitCondition)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+            wait.Until(_driver => waitCondition);
+        }
 
     }
 }
