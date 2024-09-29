@@ -32,7 +32,7 @@ namespace CodeLouTests
         
 
         [TestMethod]
-        public void ChaneUserName() 
+        public void ChangeUserName() 
         {
             //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
@@ -47,8 +47,10 @@ namespace CodeLouTests
             _loginPage.passwordTextBox.SendKeys("admin123");
             _loginPage.clickLoginButton.Click();
             wait.Until(d => _myInfoPage.myInfoNav.Displayed);
+            Assert.AreEqual(_landingPage.landingPageUrl, _driver.Url);
             _myInfoPage.myInfoNav.Click();
             wait.Until(d => _myInfoPage.firstNameTextBox.Displayed);
+            Assert.AreEqual(_myInfoPage.myInfoPageUrl, _driver.Url);
             _myInfoPage.firstNameTextBox.SendKeys(Keys.Control + "a");
             _myInfoPage.firstNameTextBox.SendKeys(Keys.Delete);
             _myInfoPage.lastNameTextBox.SendKeys(Keys.Control + "a");
@@ -60,7 +62,7 @@ namespace CodeLouTests
             wait.Until(d => _landingPage.userDropDown.Displayed);
             //Assert
             Assert.AreEqual($"{firstName} {lastName}", _landingPage.userDropDown.Text);
-            
+              
         }
         
         [TestCleanup]

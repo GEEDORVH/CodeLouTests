@@ -16,6 +16,8 @@ namespace CodeLouTests
             _driver = driver;
 
         }
+        public string landingPageUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index";
+
         public IWebElement userDropDown => _driver.FindElement(By.XPath("//p[@class='oxd-userdropdown-name']"));
     }
 }
