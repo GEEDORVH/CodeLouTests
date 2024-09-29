@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using Bogus;
+using System.Linq;
 
 namespace CodeLouTests
 {
@@ -18,6 +19,7 @@ namespace CodeLouTests
         public MyInfoPage _myInfoPage;
         public SeleniumHelpers _seleniumHelpers;
         public LandingPage _landingPage;
+        public HelpPage _helpPage;
 
         [TestInitialize]
         public void SetUp()
@@ -27,12 +29,13 @@ namespace CodeLouTests
             _myInfoPage = new MyInfoPage(_driver);
             _seleniumHelpers = new SeleniumHelpers(_driver);
             _landingPage = new LandingPage(_driver);
+            _helpPage = new HelpPage(_driver);
             _driver.Manage().Window.Maximize();
         }
         
 
         [TestMethod]
-        public void ChangeUserName() 
+        public void Change_UserName() 
         {
             //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
@@ -40,17 +43,17 @@ namespace CodeLouTests
             string firstName = faker.Name.FirstName();
             string lastName = faker.Name.LastName();
             //Act
+            _driver.Manage().Cookies.DeleteAllCookies();
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+           
             
-            wait.Until(d => _loginPage.userNameTextBox.Displayed);
-            _loginPage.userNameTextBox.SendKeys("Admin");
-            _loginPage.passwordTextBox.SendKeys("admin123");
-            _loginPage.clickLoginButton.Click();
+            _loginPage.Login();
             wait.Until(d => _myInfoPage.myInfoNav.Displayed);
             Assert.AreEqual(_landingPage.landingPageUrl, _driver.Url);
             _myInfoPage.myInfoNav.Click();
             wait.Until(d => _myInfoPage.firstNameTextBox.Displayed);
             Assert.AreEqual(_myInfoPage.myInfoPageUrl, _driver.Url);
+            Task.Delay(TimeSpan.FromSeconds(2)).Wait();
             _myInfoPage.firstNameTextBox.SendKeys(Keys.Control + "a");
             _myInfoPage.firstNameTextBox.SendKeys(Keys.Delete);
             _myInfoPage.lastNameTextBox.SendKeys(Keys.Control + "a");
@@ -63,6 +66,29 @@ namespace CodeLouTests
             //Assert
             Assert.AreEqual($"{firstName} {lastName}", _landingPage.userDropDown.Text);
               
+        }
+        [TestMethod]
+        public void HelpPage_Naviagtion()
+        {
+            //Arrange
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+            //Act
+            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            _loginPage.Login();
+            wait.Until(d => _helpPage.helpIcon.Displayed);
+            _helpPage.helpIcon.Click();
+            _driver.SwitchTo().Window(_driver.WindowHandles[1]);
+            wait.Until(d => _helpPage.searchBar.Displayed);
+            //Assert
+            Assert.IsTrue(_helpPage.searchBar.Displayed);
+            Assert.IsTrue(_helpPage.adminUserGuideLink.Displayed);
+            Assert.IsTrue(_helpPage.employeeUserGuide.Displayed);
+            Assert.IsTrue(_helpPage.mobileApp.Displayed);
+            Assert.IsTrue(_helpPage.awsGuide.Displayed);
+            Assert.IsTrue(_helpPage.faqsButton.Displayed);
+            Assert.IsTrue(_helpPage.signIn.Displayed);
         }
         
         [TestCleanup]

@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V126.Emulation;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,16 @@ namespace CodeLouTests
         public IWebElement userNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Username']"));
         public IWebElement passwordTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Password']"));
         public IWebElement clickLoginButton => _driver.FindElement(By.XPath("//button[normalize-space()='Login']"));
+
+
+
+        public void Login() 
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+            wait.Until(d => userNameTextBox.Displayed);
+            userNameTextBox.SendKeys("Admin");
+            passwordTextBox.SendKeys("admin123");
+            clickLoginButton.Click();
+        }
     }
 }

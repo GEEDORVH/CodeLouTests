@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="HelpPage.cs" />
     <Compile Include="LandingPage.cs" />
     <Compile Include="LoginPage.cs" />
     <Compile Include="IWebElementExtentions.cs" />
