@@ -38,12 +38,13 @@ namespace CodeLouTests
         public void ClickViaJavaScript(IWebElement element) 
         {
             IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)_driver;
+            javaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", element);
             javaScriptExecutor.ExecuteScript("arguments[0].click();", element);
         }
-        public void WebDriverWait(bool waitCondition)
+        public void WebDriverWait(IWebDriver driver, bool waitCondition)
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
-            wait.Until(_driver => waitCondition);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(100));
+            wait.Until(d => waitCondition);
         }
 
     }
