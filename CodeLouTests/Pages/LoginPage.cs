@@ -22,8 +22,8 @@ namespace CodeLouTests
         }
 
         public string openSourceUrl = "https://opensource-demo.orangehrmlive.com/auth/login";
-        public IWebElement userNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Username']"));
-        public IWebElement passwordTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Password']"));
+        public IWebElement userNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='username']"));
+        public IWebElement passwordTextBox => _driver.FindElement(By.XPath("//input[@placeholder='password']"));
         public IWebElement clickLoginButton => _driver.FindElement(By.XPath("//button[normalize-space()='Login']"));
 
 

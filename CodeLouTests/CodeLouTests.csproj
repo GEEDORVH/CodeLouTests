@@ -132,15 +132,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminPage.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="HelpPage.cs" />
-    <Compile Include="LandingPage.cs" />
-    <Compile Include="LoginPage.cs" />
-    <Compile Include="IWebElementExtentions.cs" />
-    <Compile Include="MyInfoPage.cs" />
-    <Compile Include="SeleniumHelpers.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Pages\AdminPage.cs" />
+    <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Pages\HelpPage.cs" />
+    <Compile Include="Pages\LandingPage.cs" />
+    <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Helpers\IWebElementExtentions.cs" />
+    <Compile Include="Pages\MyInfoPage.cs" />
+    <Compile Include="Helpers\SeleniumHelpers.cs" />
+    <Compile Include="Tests\UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
