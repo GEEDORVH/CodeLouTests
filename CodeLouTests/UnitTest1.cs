@@ -20,6 +20,7 @@ namespace CodeLouTests
         public SeleniumHelpers _seleniumHelpers;
         public LandingPage _landingPage;
         public HelpPage _helpPage;
+        public AdminPage _adminPage;
 
         [TestInitialize]
         public void SetUp()
@@ -30,6 +31,7 @@ namespace CodeLouTests
             _seleniumHelpers = new SeleniumHelpers(_driver);
             _landingPage = new LandingPage(_driver);
             _helpPage = new HelpPage(_driver);
+            _adminPage = new AdminPage(_driver);
             _driver.Manage().Window.Maximize();
         }
         
@@ -89,6 +91,19 @@ namespace CodeLouTests
             Assert.IsTrue(_helpPage.awsGuide.Displayed);
             Assert.IsTrue(_helpPage.faqsButton.Displayed);
             Assert.IsTrue(_helpPage.signIn.Displayed);
+        }
+        [TestMethod]
+        public void Search_And_Edit_Users()
+        {
+            //Arrange
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            //Act
+            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            _loginPage.Login();
+            wait.Until(d => _helpPage.helpIcon.Displayed);
+            //Assert
+
         }
         
         [TestCleanup]
