@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using Bogus;
 using System.Linq;
+using CodeLouTests.Pages;
 
 namespace CodeLouTests
 {
@@ -21,6 +22,8 @@ namespace CodeLouTests
         public LandingPage _landingPage;
         public HelpPage _helpPage;
         public AdminPage _adminPage;
+        public NavigationBar _navigationBar;
+        public AdminManagementPage _adminManagementPage;
 
         [TestInitialize]
         public void SetUp()
@@ -32,6 +35,8 @@ namespace CodeLouTests
             _landingPage = new LandingPage(_driver);
             _helpPage = new HelpPage(_driver);
             _adminPage = new AdminPage(_driver);
+            _navigationBar = new NavigationBar(_driver);
+            _adminManagementPage = new AdminManagementPage(_driver);
             _driver.Manage().Window.Maximize();
         }
         
@@ -96,12 +101,15 @@ namespace CodeLouTests
         public void Search_And_Edit_Users()
         {
             //Arrange
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
             wait.Until(d => _helpPage.helpIcon.Displayed);
+            _navigationBar.adminIcon.Click();
+            wait.Until(d => _adminManagementPage.addButton.Displayed);
+            _adminManagementPage.addButton.Click();
             //Assert
 
         }

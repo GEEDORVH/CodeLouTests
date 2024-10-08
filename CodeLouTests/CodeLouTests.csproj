@@ -132,6 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\AdminManagementPage.cs" />
     <Compile Include="Pages\AdminPage.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Pages\HelpPage.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Helpers\IWebElementExtentions.cs" />
     <Compile Include="Pages\MyInfoPage.cs" />
     <Compile Include="Helpers\SeleniumHelpers.cs" />
+    <Compile Include="Pages\NavigationBar.cs" />
     <Compile Include="Tests\UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

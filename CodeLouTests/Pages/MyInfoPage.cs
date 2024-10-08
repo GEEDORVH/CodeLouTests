@@ -18,9 +18,9 @@ namespace CodeLouTests
             _driver = driver;
 
         }
-        public string myInfoPageUrl = "https://opensource-demo.orangehrmlive.com/pim/viewPersonalDetails/empNumber/7";
+        public string myInfoPageUrl = "https://opensource-demo.orangehrmlive.com/web/pim/viewPersonalDetails/empNumber/7";
         public IWebElement myInfoNav => _driver.FindElement(By.XPath("//span[normalize-space()='My Info']"));
-        public IWebElement firstNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='First name']"));
+        public IWebElement firstNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='First Name']"));
         public IWebElement lastNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Last Name']"));
         public IWebElement saveButton => _driver.FindElement(By.XPath("//div[@class='orangehrm-horizontal-padding orangehrm-vertical-padding']//button[@type='submit'][normalize-space()='Save']"));
         
