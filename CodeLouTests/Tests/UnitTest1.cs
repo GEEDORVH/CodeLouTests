@@ -9,6 +9,7 @@ using OpenQA.Selenium.Support.UI;
 using Bogus;
 using System.Linq;
 using CodeLouTests.Pages;
+using OpenQA.Selenium.Interactions;
 
 namespace CodeLouTests
 {
@@ -131,6 +132,9 @@ namespace CodeLouTests
         {
             //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            Actions actions = new Actions(_driver);
+            var faker = new Faker();
+            string username = faker.Name.FirstName();
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             //wait.Until(d => _loginPage.userNameTextBox.Displayed);
@@ -141,8 +145,8 @@ namespace CodeLouTests
             _adminManagementPage.addButton.Click();
             //wait.Until(d => _addUserPage.userRoleDropdown.Displayed);
             _addUserPage.userRoleDropdown.Click();
-            _addUserPage.userRoleDropdown.SendKeys("a");
-            //_addUserPage.userRoleDropdown.SendKeys(Keys.Enter);
+            _addUserPage.userRoleDropdown.SendKeys(Keys.Down);
+            actions.SendKeys(Keys.Enter).Perform();
             _addUserPage.userEmployeeTextBox.Click();
             _addUserPage.userEmployeeTextBox.SendKeys("r");
             _addUserPage.userEmployeeTextBox.SendKeys(Keys.ArrowDown);
@@ -152,8 +156,9 @@ namespace CodeLouTests
             _addUserPage.userEmployeeTextBox.SendKeys(Keys.Enter);
             _addUserPage.statusDropdown.Click();
             _addUserPage.statusDropdown.SendKeys("e");
+            actions.SendKeys(Keys.Enter).Perform();
             Task.Delay(950).Wait();
-            _addUserPage.userNameTextBox.SendKeys("Corey123456");
+            _addUserPage.userNameTextBox.SendKeys(username);
             Task.Delay(950).Wait();
             _addUserPage.passwordTextBox.SendKeys("Admin123$");
             _addUserPage.confirmPasswordTextBox.SendKeys("Admin123$");
