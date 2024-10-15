@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools.V126.Emulation;
+//using OpenQA.Selenium.DevTools.V126.Emulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
