@@ -134,16 +134,18 @@ namespace CodeLouTests
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             Actions actions = new Actions(_driver);
             var faker = new Faker();
-            string username = faker.Name.FirstName();
+            string username = Enumerable.Range(0, int.MaxValue)
+                .Select(i => faker.Name.FirstName())
+                .First(name => name.Length >= 5);
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
-            //wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
-            //wait.Until(d => _helpPage.helpIcon.Displayed);
+            wait.Until(d => _helpPage.helpIcon.Displayed);
             _navigationBar.adminIcon.Click();
-            //wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
+            wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
             _adminManagementPage.addButton.Click();
-            //wait.Until(d => _addUserPage.userRoleDropdown.Displayed);
+            wait.Until(d => _addUserPage.userRoleDropdown.Displayed);
             _addUserPage.userRoleDropdown.Click();
             _addUserPage.userRoleDropdown.SendKeys(Keys.Down);
             actions.SendKeys(Keys.Enter).Perform();
@@ -163,7 +165,7 @@ namespace CodeLouTests
             _addUserPage.passwordTextBox.SendKeys("Admin123$");
             _addUserPage.confirmPasswordTextBox.SendKeys("Admin123$");
             _addUserPage.saveButton.Click();
-            //Task.Delay(1000).Wait();
+            Task.Delay(1000).Wait();
         }
         
         [TestCleanup]
