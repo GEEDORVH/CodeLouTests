@@ -18,5 +18,6 @@ namespace CodeLouTests.Pages
 
         }
         public IWebElement adminIcon => _driver.FindElement(By.XPath("//span[normalize-space()='Admin']"));
+        public IWebElement leaveButton => _driver.FindElement(By.XPath("//span[normalize-space()='Leave']"));
     }
 }

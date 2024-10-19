@@ -130,14 +130,14 @@ namespace CodeLouTests
         [TestMethod]
         public void Add_NewUser_AndLogin()
         {
-            //Arrange
+           //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             Actions actions = new Actions(_driver);
             var faker = new Faker();
             string username = Enumerable.Range(0, int.MaxValue)
                 .Select(i => faker.Name.FirstName())
                 .First(name => name.Length >= 5);
-            //Act
+           //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
@@ -176,6 +176,10 @@ namespace CodeLouTests
             _loginPage.LoginButton.Click();
             wait.Until(d => _adminManagementPage.profileDropdown.Displayed);
             Assert.IsTrue(_adminManagementPage.profileDropdown.Displayed);
+           //Assert
+            Assert.IsTrue(_navigationBar.adminIcon.Displayed);
+            Assert.IsTrue(_myInfoPage.myInfoNav.Displayed);
+            Assert.IsTrue(_navigationBar.leaveButton.Displayed);
         }
         
         [TestCleanup]
