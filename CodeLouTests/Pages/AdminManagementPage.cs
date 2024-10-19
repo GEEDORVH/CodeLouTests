@@ -23,7 +23,8 @@ namespace CodeLouTests.Pages
         public IWebElement editPageUsernameTextBox => _driver.FindElement(By.XPath("//input[@autocomplete='off']"));
         public IWebElement employeeNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Type for hints...']"));
         public IWebElement adminSaveButton => _driver.FindElement(By.XPath("//button[normalize-space()='Save']"));
-
+        public IWebElement profileDropdown => _driver.FindElement(By.XPath("//p[@class='oxd-userdropdown-name']"));
+        public IWebElement logOutButton => _driver.FindElement(By.XPath("//a[normalize-space()='Logout']"));
     }
 
 }

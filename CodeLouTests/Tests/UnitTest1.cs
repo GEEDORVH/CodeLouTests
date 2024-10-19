@@ -152,20 +152,30 @@ namespace CodeLouTests
             _addUserPage.userEmployeeTextBox.Click();
             _addUserPage.userEmployeeTextBox.SendKeys("r");
             _addUserPage.userEmployeeTextBox.SendKeys(Keys.ArrowDown);
-            Task.Delay(950).Wait();
+            Task.Delay(1000).Wait();
             _addUserPage.userEmployeeTextBox.SendKeys(Keys.ArrowDown);
-            Task.Delay(950).Wait();
+            Task.Delay(1000).Wait();
             _addUserPage.userEmployeeTextBox.SendKeys(Keys.Enter);
             _addUserPage.statusDropdown.Click();
             _addUserPage.statusDropdown.SendKeys("e");
             actions.SendKeys(Keys.Enter).Perform();
-            Task.Delay(950).Wait();
+            Task.Delay(1000).Wait();
             _addUserPage.userNameTextBox.SendKeys(username);
-            Task.Delay(950).Wait();
+            Task.Delay(1000).Wait();
             _addUserPage.passwordTextBox.SendKeys("Admin123$");
             _addUserPage.confirmPasswordTextBox.SendKeys("Admin123$");
             _addUserPage.saveButton.Click();
-            Task.Delay(1000).Wait();
+            wait.Until(d => _adminManagementPage.addButton.Displayed);
+            Assert.IsTrue(_adminManagementPage.addButton.Displayed);
+            _adminManagementPage.profileDropdown.Click();
+            _adminManagementPage.logOutButton.Click();
+            wait.Until(d => _loginPage.passwordTextBox.Displayed);
+            Assert.IsTrue( _loginPage.passwordTextBox.Displayed);
+            _loginPage.userNameTextBox.SendKeys(username);
+            _loginPage.passwordTextBox.SendKeys("Admin123$");
+            _loginPage.LoginButton.Click();
+            wait.Until(d => _adminManagementPage.profileDropdown.Displayed);
+            Assert.IsTrue(_adminManagementPage.profileDropdown.Displayed);
         }
         
         [TestCleanup]
