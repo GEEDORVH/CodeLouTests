@@ -195,10 +195,29 @@ namespace CodeLouTests
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
 
-
+            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            _loginPage.Login();
+            wait.Until(d => _helpPage.helpIcon.Displayed);
             //Assert
         }
-        
+        [TestMethod]
+        public void Apply_For_Leave()
+        {
+            //Arrange
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+
+            //Act
+            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+
+            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            _loginPage.Login();
+            wait.Until(d => _helpPage.helpIcon.Displayed);
+            //Assert
+
+        }
+
         [TestCleanup]
         public void Cleanup()
         {
