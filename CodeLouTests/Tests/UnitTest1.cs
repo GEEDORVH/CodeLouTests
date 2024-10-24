@@ -110,6 +110,7 @@ namespace CodeLouTests
             wait.Until(d => _helpPage.helpIcon.Displayed);
             _navigationBar.adminIcon.Click();
             wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
+            Assert.IsTrue(_navigationBar.adminIcon.Displayed);
             _adminManagementPage.searchForUserTextBox.SendKeys("Admin");
             _seleniumHelpers.ScrollElementIntoViewAndClick(_adminManagementPage.adminSearchButton);
             wait.Until(d => _adminManagementPage.editPencilButton.Displayed);
@@ -119,11 +120,15 @@ namespace CodeLouTests
             _adminManagementPage.employeeNameTextBox.SendKeys(Keys.Delete);
             _adminManagementPage.editPageUsernameTextBox.SendKeys(Keys.Control + "a");
             _adminManagementPage.editPageUsernameTextBox.SendKeys(Keys.Delete);
-            _adminManagementPage.employeeNameTextBox.SendKeys("Corey");
+            _adminManagementPage.employeeNameTextBox.SendKeys("r");
+            _adminManagementPage.employeeNameTextBox.SendKeys(Keys.ArrowDown);
+            Task.Delay(1000).Wait();
+            _adminManagementPage.employeeNameTextBox.SendKeys(Keys.ArrowDown);
+            Task.Delay(1000).Wait();
+            _adminManagementPage.employeeNameTextBox.SendKeys(Keys.Enter);
             _adminManagementPage.editPageUsernameTextBox.SendKeys("Admin123");
             _adminManagementPage.adminSaveButton.Click();
             wait.Until(d => _addUserPage.userSaveButton.Displayed);
-
             //Assert
 
         }
@@ -180,6 +185,18 @@ namespace CodeLouTests
             Assert.IsTrue(_navigationBar.adminIcon.Displayed);
             Assert.IsTrue(_myInfoPage.myInfoNav.Displayed);
             Assert.IsTrue(_navigationBar.leaveButton.Displayed);
+        }
+        [TestMethod]
+        public void Upload_A_File()
+        {
+            //Arrange
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+
+            //Act
+            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
+
+
+            //Assert
         }
         
         [TestCleanup]
