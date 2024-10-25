@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
 using OpenQA.Selenium;
 using System.Runtime.InteropServices;
 using OpenQA.Selenium.Chrome;
@@ -10,6 +11,7 @@ using Bogus;
 using System.Linq;
 using CodeLouTests.Pages;
 using OpenQA.Selenium.Interactions;
+using System.Reflection;
 
 namespace CodeLouTests
 {
@@ -191,13 +193,15 @@ namespace CodeLouTests
         [TestMethod]
         public void Upload_A_File()
         {
+            var baseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string testFileName = "CoreyTestText.txt";
+            string filePath = Path.Combine(baseDirectory, testFileName);
             //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
 
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
 
-            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             //wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
             //wait.Until(d => _helpPage.helpIcon.Displayed);
@@ -205,7 +209,13 @@ namespace CodeLouTests
             _myInfoPage.myInfoNav.Click();
             //wait.Until(d => _helpPage.helpIcon.Displayed);
             _seleniumHelpers.ScrollElementIntoViewAndClick(_myInfoPage.addAttachmentButton);
-            _myInfoPage.browseButton.Click();
+            _myInfoPage.browseButton.SendKeys(filePath);
+            _myInfoPage.attachmentSaveButton.Click();
+            wait.Until(d => _myInfoPage.attachmentSectionBox.Displayed);
+            _myInfoPage.attachmentSectionBox.Click();
+            string text = _myInfoPage.attachmentSectionBox.Text;
+            Assert.AreEqual("text/plain", text);
+            Assert.AreEqual("CoreyTestText.txt", text);
             //Assert
         }
         [TestMethod]
