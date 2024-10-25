@@ -25,6 +25,7 @@ namespace CodeLouTests
         public AddUserPage _addUserPage;
         public NavigationBar _navigationBar;
         public AdminManagementPage _adminManagementPage;
+        public LeavePage _leavePage;
 
         [TestInitialize]
         public void SetUp()
@@ -38,6 +39,7 @@ namespace CodeLouTests
             _addUserPage = new AddUserPage(_driver);
             _navigationBar = new NavigationBar(_driver);
             _adminManagementPage = new AdminManagementPage(_driver);
+            _leavePage = new LeavePage(_driver);
             _driver.Manage().Window.Maximize();
         }
 
@@ -196,9 +198,14 @@ namespace CodeLouTests
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
 
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
-            wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            //wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
-            wait.Until(d => _helpPage.helpIcon.Displayed);
+            //wait.Until(d => _helpPage.helpIcon.Displayed);
+            //Assert.IsTrue(_helpPage.helpIcon.Displayed);
+            _myInfoPage.myInfoNav.Click();
+            //wait.Until(d => _helpPage.helpIcon.Displayed);
+            _seleniumHelpers.ScrollElementIntoViewAndClick(_myInfoPage.addAttachmentButton);
+            _myInfoPage.browseButton.Click();
             //Assert
         }
         [TestMethod]
@@ -211,9 +218,13 @@ namespace CodeLouTests
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
 
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
-            wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            //wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
-            wait.Until(d => _helpPage.helpIcon.Displayed);
+            //wait.Until(d => _helpPage.helpIcon.Displayed);
+            _landingPage.applyLeaveButton.Click();
+            _leavePage.leaveTypeDropdown.Click();
+            _leavePage.leaveTypeDropdown.SendKeys(Keys.ArrowDown);
+            _leavePage.leaveTypeDropdown.SendKeys(Keys.Enter);
             //Assert
 
         }

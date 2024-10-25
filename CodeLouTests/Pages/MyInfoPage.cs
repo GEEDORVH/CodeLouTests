@@ -23,6 +23,9 @@ namespace CodeLouTests
         public IWebElement firstNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='First Name']"));
         public IWebElement lastNameTextBox => _driver.FindElement(By.XPath("//input[@placeholder='Last Name']"));
         public IWebElement saveButton => _driver.FindElement(By.XPath("//div[@class='orangehrm-horizontal-padding orangehrm-vertical-padding']//button[@type='submit'][normalize-space()='Save']"));
+        public IWebElement addAttachmentButton => _driver.FindElement(By.XPath("//button[normalize-space()='Add']"));
+        public IWebElement browseButton => _driver.FindElement(By.XPath("//div[@class='oxd-file-button']"));
+
         
     }
 }
