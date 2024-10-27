@@ -202,20 +202,22 @@ namespace CodeLouTests
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
 
-            //wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
-            //wait.Until(d => _helpPage.helpIcon.Displayed);
-            //Assert.IsTrue(_helpPage.helpIcon.Displayed);
+            wait.Until(d => _helpPage.helpIcon.Displayed);
+            Assert.IsTrue(_helpPage.helpIcon.Displayed);
             _myInfoPage.myInfoNav.Click();
-            //wait.Until(d => _helpPage.helpIcon.Displayed);
+            wait.Until(d => _helpPage.helpIcon.Displayed);
             _seleniumHelpers.ScrollElementIntoViewAndClick(_myInfoPage.addAttachmentButton);
+            _myInfoPage.addAttachmentButton.Click();
+            Task.Delay(1000);
             _myInfoPage.browseButton.SendKeys(filePath);
             _myInfoPage.attachmentSaveButton.Click();
-            wait.Until(d => _myInfoPage.attachmentSectionBox.Displayed);
-            _myInfoPage.attachmentSectionBox.Click();
-            string text = _myInfoPage.attachmentSectionBox.Text;
-            Assert.AreEqual("text/plain", text);
-            Assert.AreEqual("CoreyTestText.txt", text);
+            wait.Until(d => _myInfoPage.fileNameCell.Displayed);
+            string fileNameText = _myInfoPage.fileNameCell.Text;
+            string typeCell = _myInfoPage.typeCell.Text;
+            Assert.AreEqual("text/plain", typeCell);
+            Assert.AreEqual("CoreyTestText.txt", fileNameText);
             //Assert
         }
         [TestMethod]

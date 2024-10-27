@@ -26,7 +26,9 @@ namespace CodeLouTests
         public IWebElement addAttachmentButton => _driver.FindElement(By.XPath("//button[normalize-space()='Add']"));
         public IWebElement browseButton => _driver.FindElement(By.XPath("//div[@class='oxd-file-button']"));
         public IWebElement attachmentSaveButton => _driver.FindElement(By.XPath("//div[@class='orangehrm-custom-fields']//button[@type='submit'][normalize-space()='Save']"));
-        public IWebElement attachmentSectionBox => _driver.FindElement(By.XPath("//div[contains(@class, 'oxd-table-row') and .//div[text()='CoreyTestTest.txt']]"));
+        public IWebElement fileNameCell => _driver.FindElement(By.XPath("//div[contains(@class, 'oxd-table-row') and .//div[text()='CoreyTestTest.txt']]"));
+        public IWebElement typeCell => _driver.FindElement(By.XPath(".//div[text()='text/plain']"));
+        
 
         
     }
