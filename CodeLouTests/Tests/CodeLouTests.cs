@@ -16,7 +16,7 @@ using System.Reflection;
 namespace CodeLouTests
 {
     [TestClass]
-    public class UnitTest1
+    public class CodeLouTests
     {
         public IWebDriver _driver;
         public LoginPage _loginPage;
@@ -45,7 +45,6 @@ namespace CodeLouTests
             _driver.Manage().Window.Maximize();
         }
 
-
         [TestMethod]
         public void Change_UserName()
         {
@@ -57,7 +56,6 @@ namespace CodeLouTests
             //Act
             _driver.Manage().Cookies.DeleteAllCookies();
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
-
 
             _loginPage.Login();
             wait.Until(d => _myInfoPage.myInfoNav.Displayed);
@@ -77,8 +75,8 @@ namespace CodeLouTests
             wait.Until(d => _landingPage.userDropDown.Displayed);
             //Assert
             Assert.AreEqual($"{firstName} {lastName}", _landingPage.userDropDown.Text);
-
         }
+
         [TestMethod]
         public void HelpPage_Naviagtion()
         {
@@ -102,6 +100,7 @@ namespace CodeLouTests
             Assert.IsTrue(_helpPage.faqsButton.Displayed);
             Assert.IsTrue(_helpPage.signIn.Displayed);
         }
+
         [TestMethod]
         public void Search_And_Edit_Users()
         {
@@ -134,19 +133,19 @@ namespace CodeLouTests
             _adminManagementPage.adminSaveButton.Click();
             wait.Until(d => _addUserPage.userSaveButton.Displayed);
             //Assert
-
         }
+
         [TestMethod]
         public void Add_NewUser_AndLogin()
         {
-           //Arrange
+            //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             Actions actions = new Actions(_driver);
             var faker = new Faker();
             string username = Enumerable.Range(0, int.MaxValue)
                 .Select(i => faker.Name.FirstName())
                 .First(name => name.Length >= 5);
-           //Act
+            //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
@@ -179,17 +178,18 @@ namespace CodeLouTests
             _adminManagementPage.profileDropdown.Click();
             _adminManagementPage.logOutButton.Click();
             wait.Until(d => _loginPage.passwordTextBox.Displayed);
-            Assert.IsTrue( _loginPage.passwordTextBox.Displayed);
+            Assert.IsTrue(_loginPage.passwordTextBox.Displayed);
             _loginPage.userNameTextBox.SendKeys(username);
             _loginPage.passwordTextBox.SendKeys("Admin123$");
             _loginPage.LoginButton.Click();
             wait.Until(d => _adminManagementPage.profileDropdown.Displayed);
             Assert.IsTrue(_adminManagementPage.profileDropdown.Displayed);
-           //Assert
+            //Assert
             Assert.IsTrue(_navigationBar.adminIcon.Displayed);
             Assert.IsTrue(_myInfoPage.myInfoNav.Displayed);
             Assert.IsTrue(_navigationBar.leaveButton.Displayed);
         }
+
         [TestMethod]
         public void Upload_A_File()
         {
@@ -220,14 +220,15 @@ namespace CodeLouTests
             Assert.AreEqual("CoreyTestText.txt", fileNameText);
             //Assert
         }
+
         [TestMethod]
         public void Apply_For_Leave()
         {
             //Arrange
+
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
 
             //Act
-            _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
 
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             //wait.Until(d => _loginPage.userNameTextBox.Displayed);
@@ -237,8 +238,29 @@ namespace CodeLouTests
             _leavePage.leaveTypeDropdown.Click();
             _leavePage.leaveTypeDropdown.SendKeys(Keys.ArrowDown);
             _leavePage.leaveTypeDropdown.SendKeys(Keys.Enter);
-            //Assert
+            string leaveBalance = _leavePage.leaveBalance.Text;
+            int leaveBalanceInt = (int)double.Parse(leaveBalance.Split(' ')[0]);
+            string fromDate = _leavePage.GetNextWeekday(DateTime.Now);
+            if (leaveBalanceInt >= 1)
 
+            {
+                _leavePage.fromDateTextBox.SendKeys(fromDate);
+            }
+            else
+
+            {
+                Console.WriteLine("You do not have enough time to apply for leave");
+            }
+            string comment = "Its my birthday";
+            _leavePage.commentTextBox.SendKeys(comment);
+            _leavePage.applyButton.Click();
+            _leavePage.leaveNavButton.Click();
+            bool fromDateIsVisible = _leavePage.mainLeaveRow(_leavePage.ReformatDateTime(fromDate)).Displayed;
+            Assert.IsTrue(fromDateIsVisible);
+            bool isvisibleRow = _leavePage.row(_leavePage.ReformatDateTime(fromDate)).Displayed;
+            bool commentCellVisdible = _leavePage.commentsCell(_leavePage.ReformatDateTime(fromDate), comment).Displayed;
+
+            //Assert
         }
 
         [TestCleanup]
@@ -246,7 +268,6 @@ namespace CodeLouTests
         {
             _driver.Quit();
             _driver.Dispose();
-            
         }
     }
 }
