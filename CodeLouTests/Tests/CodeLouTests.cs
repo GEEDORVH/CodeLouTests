@@ -231,14 +231,18 @@ namespace CodeLouTests
             //Act
 
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
-            //wait.Until(d => _loginPage.userNameTextBox.Displayed);
+            wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
-            //wait.Until(d => _helpPage.helpIcon.Displayed);
+            wait.Until(d => _helpPage.helpIcon.Displayed);
+            Task.Delay(2000).Wait();
             _landingPage.applyLeaveButton.Click();
+            Task.Delay(1000).Wait();
             _leavePage.leaveTypeDropdown.Click();
             _leavePage.leaveTypeDropdown.SendKeys(Keys.ArrowDown);
             _leavePage.leaveTypeDropdown.SendKeys(Keys.Enter);
+            Task.Delay(1000).Wait();
             string leaveBalance = _leavePage.leaveBalance.Text;
+            Task.Delay(1000).Wait();
             int leaveBalanceInt = (int)double.Parse(leaveBalance.Split(' ')[0]);
             string fromDate = _leavePage.GetNextWeekday(DateTime.Now);
             if (leaveBalanceInt >= 1)
@@ -254,11 +258,15 @@ namespace CodeLouTests
             string comment = "Its my birthday";
             _leavePage.commentTextBox.SendKeys(comment);
             _leavePage.applyButton.Click();
+            Task.Delay(1000).Wait();
             _leavePage.leaveNavButton.Click();
+            Task.Delay(2500).Wait();
             bool fromDateIsVisible = _leavePage.mainLeaveRow(_leavePage.ReformatDateTime(fromDate)).Displayed;
             Assert.IsTrue(fromDateIsVisible);
             bool isvisibleRow = _leavePage.row(_leavePage.ReformatDateTime(fromDate)).Displayed;
             bool commentCellVisdible = _leavePage.commentsCell(_leavePage.ReformatDateTime(fromDate), comment).Displayed;
+            _leavePage.myLeaveButton.Click();
+            wait.Until(d => _leavePage.resetButton.Displayed);
 
             //Assert
         }
