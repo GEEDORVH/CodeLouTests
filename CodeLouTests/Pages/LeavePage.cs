@@ -28,11 +28,11 @@ namespace CodeLouTests.Pages
         public IWebElement commentsLeaveRow(string date, string comment) => _driver.FindElement(By.XPath($"//div[contains(text(),'{date}')]")).FindElement(By.XPath($".//div[text()='{comment}']"));
         public IWebElement row(string targetDate) => _driver.FindElement(By.XPath($"//div[@class='oxd-table-row oxd-table-row--with-border' and @role='row'][.//div[text()='{targetDate}']]"));
         public List<IWebElement> cells(string targetDate) => row(targetDate).FindElements(By.XPath(".//div[@role='cell']")).ToList<IWebElement>();
-        public IWebElement commentsCell(string targetDate, string comment) => row(targetDate).FindElement(By.XPath($".//div[@role='cell' and contains(text(), '{comment}')]"));
+        public IWebElement commentsCell(string targetDate, string comment) => row(targetDate).FindElement(By.XPath($".//div[contains(text(), '{comment}')]"));
         public IWebElement myLeaveButton => _driver.FindElement(By.XPath("//a[normalize-space()='My Leave']"));
         public IWebElement resetButton => _driver.FindElement(By.XPath("//button[normalize-space()='Reset']"));
         public IWebElement leaveStatus => _driver.FindElement(By.XPath("//div[@class='oxd-table-cell oxd-padding-cell' and @role='cell']//div[text()='Pending Approval (1.00)']"));
-        public IWebElement afterLeaveStatus => _driver.FindElement(By.XPath("//div[@class='oxd-table-cell oxd-padding-cell' and @role='cell']//div[text()='Cancelled Approval (1.00)']"));
+        public IWebElement afterLeaveStatus => _driver.FindElement(By.XPath("//div[@class='oxd-table-cell oxd-padding-cell' and @role='cell']//div[text()='Cancelled (1.00)']"));
         public IWebElement cancelLeaveButton => _driver.FindElement(By.XPath("//button[normalize-space()='Cancel']"));
         public string GetNextWeekday(DateTime startDate)
 

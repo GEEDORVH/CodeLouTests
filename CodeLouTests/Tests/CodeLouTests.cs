@@ -12,6 +12,7 @@ using System.Linq;
 using CodeLouTests.Pages;
 using OpenQA.Selenium.Interactions;
 using System.Reflection;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 namespace CodeLouTests
 {
@@ -191,17 +192,16 @@ namespace CodeLouTests
         }
 
         [TestMethod]
-        public void Upload_A_File()
+        [DataRow("CoreyTestText.txt")]
+        [DataRow("TestTextFile.txt")]
+        public void Upload_A_File(string testFileName)
         {
             var baseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string testFileName = "CoreyTestText.txt";
             string filePath = Path.Combine(baseDirectory, testFileName);
-            //Arrange
+            // Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
-
-            //Act
+            // Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
-
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
             wait.Until(d => _helpPage.helpIcon.Displayed);
@@ -216,9 +216,9 @@ namespace CodeLouTests
             wait.Until(d => _myInfoPage.fileNameCell.Displayed);
             string fileNameText = _myInfoPage.fileNameCell.Text;
             string typeCell = _myInfoPage.typeCell.Text;
+            // Assert
             Assert.AreEqual("text/plain", typeCell);
-            Assert.AreEqual("CoreyTestText.txt", fileNameText);
-            //Assert
+            Assert.AreEqual(testFileName, fileNameText);
         }
 
         [TestMethod]
@@ -233,10 +233,9 @@ namespace CodeLouTests
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
-            wait.Until(d => _helpPage.helpIcon.Displayed);
-            Task.Delay(2000).Wait();
+            wait.Until(d => _landingPage.applyLeaveButton.Displayed);
             _landingPage.applyLeaveButton.Click();
-            Task.Delay(1000).Wait();
+            wait.Until(d => _helpPage.helpIcon.Displayed);
             _leavePage.leaveTypeDropdown.Click();
             _leavePage.leaveTypeDropdown.SendKeys(Keys.ArrowDown);
             _leavePage.leaveTypeDropdown.SendKeys(Keys.Enter);
@@ -267,6 +266,9 @@ namespace CodeLouTests
             bool commentCellVisdible = _leavePage.commentsCell(_leavePage.ReformatDateTime(fromDate), comment).Displayed;
             _leavePage.myLeaveButton.Click();
             wait.Until(d => _leavePage.resetButton.Displayed);
+            _leavePage.cancelLeaveButton.Click();
+            wait.Until(d => _leavePage.afterLeaveStatus.Displayed);
+            Assert.IsTrue(_leavePage.afterLeaveStatus.Displayed);
 
             //Assert
         }
