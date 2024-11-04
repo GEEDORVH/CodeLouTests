@@ -114,8 +114,10 @@ namespace CodeLouTests
             wait.Until(d => _helpPage.helpIcon.Displayed);
             _navigationBar.adminIcon.Click();
             wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
+            string username = _addUserPage.AddUser();
             Assert.IsTrue(_navigationBar.adminIcon.Displayed);
-            _adminManagementPage.searchForUserTextBox.SendKeys("Admin");
+            _adminManagementPage.searchForUserTextBox.SendKeys(username);
+            wait.Until(d => _adminManagementPage.editPencilButton.Displayed);
             _seleniumHelpers.ScrollElementIntoViewAndClick(_adminManagementPage.adminSearchButton);
             wait.Until(d => _adminManagementPage.editPencilButton.Displayed);
             _seleniumHelpers.ScrollElementIntoViewAndClick(_adminManagementPage.editPencilButton);
@@ -134,46 +136,26 @@ namespace CodeLouTests
             _adminManagementPage.adminSaveButton.Click();
             wait.Until(d => _addUserPage.userSaveButton.Displayed);
             //Assert
+
         }
 
         [TestMethod]
         public void Add_NewUser_AndLogin()
+
         {
             //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             Actions actions = new Actions(_driver);
-            var faker = new Faker();
-            string username = Enumerable.Range(0, int.MaxValue)
-                .Select(i => faker.Name.FirstName())
-                .First(name => name.Length >= 5);
+            string username = _addUserPage.AddUser();
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
             wait.Until(d => _helpPage.helpIcon.Displayed);
             _navigationBar.adminIcon.Click();
+            _addUserPage.AddUser();
             wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
             _adminManagementPage.addButton.Click();
-            wait.Until(d => _addUserPage.userRoleDropdown.Displayed);
-            _addUserPage.userRoleDropdown.Click();
-            _addUserPage.userRoleDropdown.SendKeys(Keys.Down);
-            actions.SendKeys(Keys.Enter).Perform();
-            _addUserPage.userEmployeeTextBox.Click();
-            _addUserPage.userEmployeeTextBox.SendKeys("r");
-            _addUserPage.userEmployeeTextBox.SendKeys(Keys.ArrowDown);
-            Task.Delay(1000).Wait();
-            _addUserPage.userEmployeeTextBox.SendKeys(Keys.ArrowDown);
-            Task.Delay(1000).Wait();
-            _addUserPage.userEmployeeTextBox.SendKeys(Keys.Enter);
-            _addUserPage.statusDropdown.Click();
-            _addUserPage.statusDropdown.SendKeys("e");
-            actions.SendKeys(Keys.Enter).Perform();
-            Task.Delay(1000).Wait();
-            _addUserPage.userNameTextBox.SendKeys(username);
-            Task.Delay(1000).Wait();
-            _addUserPage.passwordTextBox.SendKeys("Admin123$");
-            _addUserPage.confirmPasswordTextBox.SendKeys("Admin123$");
-            _addUserPage.saveButton.Click();
             wait.Until(d => _adminManagementPage.addButton.Displayed);
             Assert.IsTrue(_adminManagementPage.addButton.Displayed);
             _adminManagementPage.profileDropdown.Click();
