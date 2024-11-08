@@ -18,6 +18,7 @@ namespace CodeLouTests
 
         public AddUserPage(IWebDriver driver)
         {
+            _adminPage = new AdminManagementPage(driver);
             _driver = driver;
 
         }

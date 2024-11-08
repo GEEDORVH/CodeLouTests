@@ -146,14 +146,14 @@ namespace CodeLouTests
             //Arrange
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             Actions actions = new Actions(_driver);
-            string username = _addUserPage.AddUser();
+            
             //Act
             _driver.Navigate().GoToUrl(_loginPage.openSourceUrl);
             wait.Until(d => _loginPage.userNameTextBox.Displayed);
             _loginPage.Login();
             wait.Until(d => _helpPage.helpIcon.Displayed);
             _navigationBar.adminIcon.Click();
-            _addUserPage.AddUser();
+            string username = _addUserPage.AddUser();
             wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
             _adminManagementPage.addButton.Click();
             wait.Until(d => _adminManagementPage.addButton.Displayed);
@@ -191,8 +191,7 @@ namespace CodeLouTests
             _myInfoPage.myInfoNav.Click();
             wait.Until(d => _helpPage.helpIcon.Displayed);
             _seleniumHelpers.ScrollElementIntoViewAndClick(_myInfoPage.addAttachmentButton);
-            _myInfoPage.addAttachmentButton.Click();
-            Task.Delay(1000);
+            Task.Delay(1000).Wait();
             _myInfoPage.browseButton.SendKeys(filePath);
             _myInfoPage.attachmentSaveButton.Click();
             wait.Until(d => _myInfoPage.fileNameCell.Displayed);
