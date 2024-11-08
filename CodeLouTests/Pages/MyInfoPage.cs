@@ -27,7 +27,7 @@ namespace CodeLouTests
         public IWebElement browseButton => _driver.FindElement(By.XPath("//input[@type='file']"));
         public IWebElement attachmentSaveButton => _driver.FindElement(By.XPath("//div[@class='orangehrm-attachment']//button[@type='submit'][normalize-space()='Save']"));
         public IWebElement fileNameCell(string fileName) => _driver.FindElement(By.XPath($"//div[text()='{fileName}']"));
-        public IWebElement typeCell(string fileName) => fileNameCell(fileName).FindElement(By.XPath("./ancestor::div[contains(@class, 'oxd-table-row')]//div[text()='text/plain']")); 
+        public IWebElement typeCell => _driver.FindElement(By.XPath("//div[text()='text/plain']"));
         
 
         
