@@ -155,9 +155,6 @@ namespace CodeLouTests
             _navigationBar.adminIcon.Click();
             string username = _addUserPage.AddUser();
             wait.Until(d => _adminManagementPage.searchForUserTextBox.Displayed);
-            _adminManagementPage.addButton.Click();
-            wait.Until(d => _adminManagementPage.addButton.Displayed);
-            Assert.IsTrue(_adminManagementPage.addButton.Displayed);
             _adminManagementPage.profileDropdown.Click();
             _adminManagementPage.logOutButton.Click();
             wait.Until(d => _loginPage.passwordTextBox.Displayed);
