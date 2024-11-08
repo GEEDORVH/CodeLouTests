@@ -194,9 +194,9 @@ namespace CodeLouTests
             Task.Delay(1000).Wait();
             _myInfoPage.browseButton.SendKeys(filePath);
             _myInfoPage.attachmentSaveButton.Click();
-            wait.Until(d => _myInfoPage.fileNameCell.Displayed);
-            string fileNameText = _myInfoPage.fileNameCell.Text;
-            string typeCell = _myInfoPage.typeCell.Text;
+            wait.Until(d => _myInfoPage.fileNameCell(testFileName).Displayed);
+            string fileNameText = _myInfoPage.fileNameCell(testFileName).Text;
+            string typeCell = _myInfoPage.typeCell(testFileName).Text;
             // Assert
             Assert.AreEqual("text/plain", typeCell);
             Assert.AreEqual(testFileName, fileNameText);
